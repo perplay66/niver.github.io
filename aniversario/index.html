@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Tio!</title>
+
+    <style>
+        /* ======= Estilo Geral ======= */
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #001f3f, #003d74, #0058a3);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.07);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            animation: fadein 1.2s ease-in-out;
+        }
+
+        .titulo {
+            font-size: 2.6rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #ffd700;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff; }
+            to   { text-shadow: 0 0 20px #ffd700; }
+        }
+
+        .mensagem {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .subtitulo {
+            margin-top: 30px;
+            font-size: 1.4rem;
+            color: #00c7ff;
+        }
+
+        /* ======= Contador ======= */
+        .contador {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .bloco {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 1.15rem;
+            transition: transform 0.3s;
+        }
+
+        .bloco:hover {
+            transform: scale(1.1);
+        }
+
+        /* ======= Galeria ======= */
+        .galeria {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+            animation: slideup 1s ease-out;
+        }
+
+        .galeria img {
+            width: 300px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            animation: fade 0.6s;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        .seta {
+            background: #ffd700;
+            border: none;
+            font-size: 1.5rem;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .seta:hover {
+            transform: scale(1.2);
+            background: #ffe271;
+        }
+
+        /* ======= Vídeo ======= */
+        .video video {
+            width: 90%;
+            border-radius: 15px;
+            margin-top: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            animation: zoomIn 1s ease;
+        }
+
+        /* ======= Animações ======= */
+        @keyframes fadein {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideup {
+            from { transform: translateY(40px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="titulo">Feliz Aniversário, Tio!</h1>
+
+        <p class="mensagem">
+            Hoje celebramos mais do que o seu aniversário — celebramos o homem que você é.  
+            Seus conselhos diretos sempre vêm carregados de verdade, amor e preocupação.  
+            Seu exemplo de dedicação, trabalho duro e liderança inspira todos nós.   
+            Obrigado por sempre cuidar da família e por ensinar com atitudes.
+        </p>
+        <!-- Contador -->
+        <h2 class="subtitulo">Tempo de história desde 18/11/1989</h2>
+
+        <div class="contador" id="contador">
+            <div class="bloco">Dias: <span id="dias"></span></div>
+            <div class="bloco">Horas: <span id="horas"></span></div>
+            <div class="bloco">Minutos: <span id="minutos"></span></div>
+            <div class="bloco">Segundos: <span id="segundos"></span></div>
+        </div>
+
+        <!-- Galeria -->
+        <h2 class="subtitulo">Memórias Marcantes</h2>
+        <div class="galeria">
+            <button class="seta" onclick="trocarFoto(-1)">⬅️</button>
+            <img id="foto" src="t.jpeg" alt="Foto do tio">
+            <button class="seta" onclick="trocarFoto(1)">➡️</button>
+        </div>
+
+    <!-- JavaScript -->
+    <script>
+        let fotos = ["blob:https://web.whatsapp.com/7b0f46c4-5fa6-40af-bb55-b4e2d80d1de9", "blob:https://web.whatsapp.com/d4427f42-ed88-4c74-b677-5252ed9687a5"];
+        let indice = 0;
+
+        function trocarFoto(direcao) {
+            indice = (indice + direcao + fotos.length) % fotos.length;
+            document.getElementById("foto").src = fotos[indice];
+        }
+
+        function atualizarContador() {
+            const dataDestino = new Date("1988-11-18T00:00:00"); // NOVA DATA
+            const agora = new Date();
+            const diferenca = agora - dataDestino;
+
+            if (diferenca > 0) {
+                const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+                document.getElementById("dias").textContent = dias;
+                document.getElementById("horas").textContent = horas;
+                document.getElementById("minutos").textContent = minutos;
+                document.getElementById("segundos").textContent = segundos;
+            } else {
+                document.getElementById("contador").textContent = "A data já passou!";
+            }
+        }
+
+        setInterval(atualizarContador, 1000);
+    </script>
+
+</body>
+</html>
